@@ -12,10 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 public class EditerCollaborateurController extends HttpServlet {
 
+	private static final String MATRICULE = "matricule";
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String avecMatricule = req.getParameter("matricule");
+		String avecMatricule = req.getParameter(MATRICULE);
 
 		resp.setContentType("text/html");
 
@@ -28,9 +30,10 @@ public class EditerCollaborateurController extends HttpServlet {
 		}
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		List<String> list = Stream.of("matricule", "titre", "nom", "prenom").filter(p -> req.getParameter(p) == null)
+		List<String> list = Stream.of(MATRICULE, "titre", "nom", "prenom").filter(p -> req.getParameter(p) == null)
 				.collect(Collectors.toList());
 		resp.getWriter().write("");
 
@@ -38,7 +41,7 @@ public class EditerCollaborateurController extends HttpServlet {
 			resp.setStatus(HttpServletResponse.SC_CREATED);
 			resp.getWriter()
 					.write("Creation d'un collaborateur avec les informations suivantes : </br> matricule = "
-							+ req.getParameter("matricule") + ", titre = " + req.getParameter("titre") + ", nom = "
+							+ req.getParameter(MATRICULE) + ", titre = " + req.getParameter("titre") + ", nom = "
 							+ req.getParameter("nom") + ", prenom = " + req.getParameter("prenom"));
 		} else {
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
