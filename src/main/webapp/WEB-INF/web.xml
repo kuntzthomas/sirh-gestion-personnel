@@ -5,6 +5,7 @@
 	version="3.1">
 	<display-name>sgp</display-name>
 
+	<!--  servlets -->
 	<servlet>
 		<servlet-name>ListerCollaborateursController</servlet-name>
 		<servlet-class>dev.sgp.web.ListerCollaborateursController</servlet-class>
@@ -34,5 +35,26 @@
 		<servlet-name>creerCollaborateurController</servlet-name>
 		<url-pattern>/collaborateur/creer</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>VisiteController</servlet-name>
+		<servlet-class>dev.sgp.web.VisiteController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>VisiteController</servlet-name>
+		<url-pattern>/statistiques/stat</url-pattern>
+	</servlet-mapping>
 	
+	<!--  filtres -->
+	<filter>
+		<filter-name>FrequentationFilter</filter-name>
+		<filter-class>dev.sgp.filter.FrequentationFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>FrequentationFilter</filter-name>
+		<url-pattern>/collaborateur/*</url-pattern>
+	</filter-mapping>
+
 </web-app>

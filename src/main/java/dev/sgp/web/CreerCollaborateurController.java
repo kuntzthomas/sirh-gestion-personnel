@@ -31,7 +31,6 @@ public class CreerCollaborateurController extends HttpServlet {
 
 		List<String> list = Stream.of("nom", "prenom", "adresse", "dateNaissance", "numSecu")
 				.filter(p -> req.getParameter(p) == null).collect(Collectors.toList());
-		resp.getWriter().write("");
 
 		if (list.isEmpty()) {
 			resp.setStatus(HttpServletResponse.SC_CREATED);

@@ -32,6 +32,6 @@
         </c:forEach>
         
     </ul>
-   </div> (
+   </div>
 </body>
 </html>
