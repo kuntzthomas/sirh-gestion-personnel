@@ -8,7 +8,7 @@ public class Collaborateur {
 	private String matricule;
 	private String nom;
 	private String prenom;
-	private LocalDate dateNaissane;
+	private LocalDate dateNaissance;
 	private String adresse;
 	private String numSecu;
 	private String emailPro;
@@ -16,13 +16,13 @@ public class Collaborateur {
 	private ZonedDateTime dateHeureCreation;
 	private Boolean actif;
 
-	public Collaborateur(String matricule, String nom, String prenom, LocalDate dateNaissane, String adresse,
+	public Collaborateur(String matricule, String nom, String prenom, LocalDate dateNaissance, String adresse,
 			String numSecu, String emailPro, String photo, Boolean actif) {
 		super();
 		this.matricule = matricule;
 		this.nom = nom;
 		this.prenom = prenom;
-		this.dateNaissane = dateNaissane;
+		this.dateNaissance = dateNaissance;
 		this.adresse = adresse;
 		this.numSecu = numSecu;
 		this.emailPro = emailPro;
@@ -31,12 +31,12 @@ public class Collaborateur {
 		this.actif = actif;
 	}
 
-	public Collaborateur(String nom, String prenom, LocalDate dateNaissane, String adresse, String numSecu) {
+	public Collaborateur(String nom, String prenom, LocalDate dateNaissance, String adresse, String numSecu) {
 		super();
 		this.matricule = null;
 		this.nom = nom;
 		this.prenom = prenom;
-		this.dateNaissane = dateNaissane;
+		this.dateNaissance = dateNaissance;
 		this.adresse = adresse;
 		this.numSecu = numSecu;
 		this.emailPro = null;
@@ -69,12 +69,12 @@ public class Collaborateur {
 		this.prenom = prenom;
 	}
 
-	public LocalDate getDateNaissane() {
-		return dateNaissane;
+	public LocalDate getDateNaissance() {
+		return dateNaissance;
 	}
 
-	public void setDateNaissane(LocalDate dateNaissane) {
-		this.dateNaissane = dateNaissane;
+	public void setDateNaissane(LocalDate dateNaissance) {
+		this.dateNaissance = dateNaissance;
 	}
 
 	public String getAdresse() {
