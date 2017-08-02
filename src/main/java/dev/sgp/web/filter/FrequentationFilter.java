@@ -1,4 +1,4 @@
-package dev.sgp.filter;
+package dev.sgp.web.filter;
 
 import java.io.IOException;
 
@@ -8,12 +8,14 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
 import dev.sgp.entite.VisiteWeb;
 import dev.sgp.service.VisiteService;
 import dev.sgp.utils.Constantes;
 
+@WebFilter(urlPatterns = { "/collaborateur/*" }, description = "Statistique filter")
 public class FrequentationFilter implements Filter {
 
 	private FilterConfig config;
