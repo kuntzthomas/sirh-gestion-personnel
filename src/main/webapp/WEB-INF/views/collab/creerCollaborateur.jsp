@@ -69,10 +69,8 @@
 
 			<!-- Button -->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="creer">Single
-					Button</label>
-				<div class="col-md-4">
-					<button name="creer"
+				<div class="col-md-12">
+					<button name="creer" id="creer" 
 						class="btn btn-primary pull-right">Créer</button>
 				</div>
 			</div>

@@ -33,16 +33,16 @@ public class Collaborateur {
 
 	public Collaborateur(String nom, String prenom, LocalDate dateNaissane, String adresse, String numSecu) {
 		super();
-		this.matricule = matricule;
+		this.matricule = null;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateNaissane = dateNaissane;
 		this.adresse = adresse;
 		this.numSecu = numSecu;
-		this.emailPro = emailPro;
-		this.photo = photo;
+		this.emailPro = null;
+		this.photo = null;
 		this.dateHeureCreation = ZonedDateTime.now();
-		this.actif = actif;
+		this.actif = false;
 	}
 
 	public String getMatricule() {

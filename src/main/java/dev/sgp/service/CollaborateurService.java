@@ -16,7 +16,7 @@ public class CollaborateurService {
 
 	public void sauvegarderCollaborateur(Collaborateur collab) {
 
-		collab.setMatricule("");
+		collab.setMatricule(collab.getPrenom().substring(0, 1) + collab.getNom());
 		collab.setPhoto("http://i.imgur.com/oPyO3CJ.png");
 		collab.setEmailPro(collab.getNom() + "." + collab.getPrenom() + "@societe.com");
 		collab.setDateHeureCreation(ZonedDateTime.now());
