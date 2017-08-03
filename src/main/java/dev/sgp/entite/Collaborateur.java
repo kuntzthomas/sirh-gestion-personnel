@@ -12,6 +12,8 @@ public class Collaborateur {
 	private String adresse;
 	private String numSecu;
 	private String emailPro;
+	private String intitulePoste;
+	private String departement;
 	private String photo;
 	private ZonedDateTime dateHeureCreation;
 	private Boolean actif;
@@ -45,6 +47,23 @@ public class Collaborateur {
 		this.actif = false;
 	}
 
+	public Collaborateur(String nom, String prenom, LocalDate dateNaissance, String adresse, String numSecu,
+			String intitulePoste, String departement) {
+		super();
+		this.matricule = null;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.dateNaissance = dateNaissance;
+		this.adresse = adresse;
+		this.numSecu = numSecu;
+		this.emailPro = null;
+		this.intitulePoste = intitulePoste;
+		this.departement = departement;
+		this.photo = null;
+		this.dateHeureCreation = ZonedDateTime.now();
+		this.actif = false;
+	}
+
 	public String getMatricule() {
 		return matricule;
 	}
@@ -73,7 +92,7 @@ public class Collaborateur {
 		return dateNaissance;
 	}
 
-	public void setDateNaissane(LocalDate dateNaissance) {
+	public void setDateNaissance(LocalDate dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 
@@ -101,6 +120,22 @@ public class Collaborateur {
 		this.emailPro = emailPro;
 	}
 
+	public String getIntitulePoste() {
+		return intitulePoste;
+	}
+
+	public void setIntitulePoste(String intitulePoste) {
+		this.intitulePoste = intitulePoste;
+	}
+
+	public String getDepartement() {
+		return departement;
+	}
+
+	public void setDepartement(String departement) {
+		this.departement = departement;
+	}
+
 	public String getPhoto() {
 		return photo;
 	}
@@ -124,4 +159,5 @@ public class Collaborateur {
 	public void setActif(Boolean actif) {
 		this.actif = actif;
 	}
+
 }
