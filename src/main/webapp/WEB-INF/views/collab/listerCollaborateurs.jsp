@@ -37,8 +37,8 @@
 			<c:forEach var="collab" items="${listeCollab}">
 				<li class="thumbnail col-lg-4 col-md-4 col-xs-4">
 					<div class="row">
-						<div class=" col-lg-4 col-md-4 col-xs-4">${collab.nom}
-							${collab.prenom}</div>
+						<div class=" col-lg-4 col-md-4 col-xs-4">${collab.prenom}
+							${collab.nom}</div>
 					</div>
 					<div class="row col-lg-12 col-md-12 col-xs-12">
 						<div class="row">
@@ -47,7 +47,7 @@
 							</div>
 							<div class="col-lg-8 col-md-8 col-xs-8">
 								Fonction : ${collab.intitulePoste} <br /> Departement :
-								${collab.departement} <br /> Email : ${collab.emailPro}<br />
+								${collab.departement.nom} <br /> Email : ${collab.emailPro}<br />
 								Adresse : ${collab.adresse}<br />
 							</div>
 						</div>
