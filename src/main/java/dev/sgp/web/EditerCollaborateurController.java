@@ -20,7 +20,7 @@ public class EditerCollaborateurController extends HttpServlet {
 	@Inject
 	private CollaborateurService collabService;
 
-	private String MATRICULE = "matricule";
+	private static final String MATRICULE = "matricule";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

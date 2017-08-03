@@ -3,8 +3,20 @@ package dev.sgp.entite;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Collaborateur")
+@NamedQueries({ @NamedQuery(name = "Collaborateur.findAll", query = "select c from Collaborateur c") })
 public class Collaborateur {
 
+	@Id
 	private String matricule;
 	private String nom;
 	private String prenom;
@@ -13,24 +25,15 @@ public class Collaborateur {
 	private String numSecu;
 	private String emailPro;
 	private String intitulePoste;
-	private String departement;
+	@ManyToOne
+	@JoinColumn(name = "Dep_Id")
+	private Departement departement;
 	private String photo;
 	private ZonedDateTime dateHeureCreation;
 	private Boolean actif;
 
-	public Collaborateur(String matricule, String nom, String prenom, LocalDate dateNaissance, String adresse,
-			String numSecu, String emailPro, String photo, Boolean actif) {
+	public Collaborateur() {
 		super();
-		this.matricule = matricule;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.dateNaissance = dateNaissance;
-		this.adresse = adresse;
-		this.numSecu = numSecu;
-		this.emailPro = emailPro;
-		this.photo = photo;
-		this.dateHeureCreation = ZonedDateTime.now();
-		this.actif = actif;
 	}
 
 	public Collaborateur(String nom, String prenom, LocalDate dateNaissance, String adresse, String numSecu) {
@@ -48,7 +51,7 @@ public class Collaborateur {
 	}
 
 	public Collaborateur(String nom, String prenom, LocalDate dateNaissance, String adresse, String numSecu,
-			String intitulePoste, String departement) {
+			String intitulePoste, Departement departement) {
 		super();
 		this.matricule = null;
 		this.nom = nom;
@@ -128,11 +131,11 @@ public class Collaborateur {
 		this.intitulePoste = intitulePoste;
 	}
 
-	public String getDepartement() {
+	public Departement getDepartement() {
 		return departement;
 	}
 
-	public void setDepartement(String departement) {
+	public void setDepartement(Departement departement) {
 		this.departement = departement;
 	}
 

@@ -1,7 +1,17 @@
 package dev.sgp.entite;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Statistique")
+@NamedQueries({ @NamedQuery(name = "Statistique.findAll", query = "select c from Statistique c") })
 public class Statistique {
 
+	@Id
 	private String chemin;
 	private Integer nbVisites;
 	private Integer tempsMin;
@@ -9,6 +19,7 @@ public class Statistique {
 	private Integer tempsMoyen;
 
 	public Statistique() {
+		super();
 	}
 
 	public String getChemin() {

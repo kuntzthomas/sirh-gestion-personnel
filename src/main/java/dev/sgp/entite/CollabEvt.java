@@ -2,14 +2,29 @@ package dev.sgp.entite;
 
 import java.time.ZonedDateTime;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
-@ApplicationScoped
+@Entity
+@Table(name = "CollabEvt")
+@NamedQueries({ @NamedQuery(name = "CollabEvt.findAll", query = "select c from CollabEvt c") })
 public class CollabEvt {
 
 	private ZonedDateTime dateHeure;
+
+	@Enumerated
 	private TypeCollabEvt type;
+
+	@Id
 	private String matricule;
+
+	public CollabEvt() {
+		super();
+	}
 
 	public CollabEvt(ZonedDateTime dateHeure, TypeCollabEvt type, String matricule) {
 		this.dateHeure = dateHeure;

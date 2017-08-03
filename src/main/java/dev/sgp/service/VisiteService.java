@@ -1,24 +1,26 @@
 package dev.sgp.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import dev.sgp.entite.VisiteWeb;
 
-@ApplicationScoped
+@Stateless
 public class VisiteService {
 
-	List<VisiteWeb> listeVisiteWeb = new ArrayList<>();
+	@PersistenceContext(unitName = "sgp-pu")
+	private EntityManager em;
 
 	public List<VisiteWeb> listerVisitesWeb() {
-		return listeVisiteWeb;
+		return em.createNamedQuery("VisiteWeb.findAll", VisiteWeb.class).getResultList();
 	}
 
-	public void sauvegarderVisiteWeb(VisiteWeb visite) {
-		listeVisiteWeb.add(visite);
+	public void sauvegarderVisiteWeb(VisiteWeb visiteWeb) {
+		em.persist(visiteWeb);
 	}
 
 	public List<VisiteWeb> getVisitesParChemin(String chemin) {
