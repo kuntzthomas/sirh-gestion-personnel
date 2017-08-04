@@ -13,7 +13,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Collaborateur")
-@NamedQueries({ @NamedQuery(name = "Collaborateur.findAll", query = "select c from Collaborateur c") })
+@NamedQueries({ @NamedQuery(name = "Collaborateur.findAll", query = "select c from Collaborateur c"),
+		@NamedQuery(name = "Collaborateur.findByDep", query = "select c from Collaborateur c where c.departement.id=:departement"),
+		@NamedQuery(name = "Collaborateur.findByMat", query = "select c from Collaborateur c where c.matricule=:matricule") })
 public class Collaborateur {
 
 	@Id
@@ -31,9 +33,26 @@ public class Collaborateur {
 	private String photo;
 	private ZonedDateTime dateHeureCreation;
 	private Boolean actif;
+	private String banque;
+	private String iban;
+	private String bic;
 
 	public Collaborateur() {
 		super();
+	}
+
+	public Collaborateur(String matricule, String adresse, boolean actif, String intitulePoste, Departement departement,
+			String banque, String iban, String bic) {
+		super();
+		this.matricule = matricule;
+		this.adresse = adresse;
+		this.actif = actif;
+		this.intitulePoste = intitulePoste;
+		this.departement = departement;
+		this.banque = banque;
+		this.iban = iban;
+		this.bic = bic;
+
 	}
 
 	public Collaborateur(String nom, String prenom, LocalDate dateNaissance, String adresse, String numSecu) {
@@ -155,12 +174,36 @@ public class Collaborateur {
 		this.dateHeureCreation = dateHeureCreation;
 	}
 
-	public Boolean getActif() {
+	public Boolean isActif() {
 		return actif;
 	}
 
 	public void setActif(Boolean actif) {
 		this.actif = actif;
+	}
+
+	public String getBanque() {
+		return banque;
+	}
+
+	public void setBanque(String banque) {
+		this.banque = banque;
+	}
+
+	public String getIban() {
+		return iban;
+	}
+
+	public void setIban(String iban) {
+		this.iban = iban;
+	}
+
+	public String getBic() {
+		return bic;
+	}
+
+	public void setBic(String bic) {
+		this.bic = bic;
 	}
 
 }

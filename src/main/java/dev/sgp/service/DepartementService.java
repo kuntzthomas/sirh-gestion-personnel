@@ -21,4 +21,8 @@ public class DepartementService {
 	public void sauvegarderDepartement(Departement departement) {
 		em.persist(departement);
 	}
+
+	public Departement getDepartementById(Integer valueOf) {
+		return em.createNamedQuery("Departement.findDepById", Departement.class).getSingleResult();
+	}
 }

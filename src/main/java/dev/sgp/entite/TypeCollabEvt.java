@@ -2,7 +2,7 @@ package dev.sgp.entite;
 
 public enum TypeCollabEvt {
 
-	CREATION_COLLAB("Creation d'un nouveau collaborateur"), MODFIFICATION_COLLAB("Modification d'un collaborateur");
+	CREATION_COLLAB("Creation d'un nouveau collaborateur"), MODIFICATION_COLLAB("Modification d'un collaborateur");
 
 	String libelle;
 

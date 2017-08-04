@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +20,7 @@ import dev.sgp.service.CollaborateurService;
 @WebServlet("/collaborateur/creer")
 public class CreerCollaborateurController extends HttpServlet {
 
-	@Inject
+	@EJB
 	private CollaborateurService collabService;
 
 	@Override

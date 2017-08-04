@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +19,7 @@ import dev.sgp.service.VisiteService;
 @WebServlet("/statistiques/stat")
 public class VisiteController extends HttpServlet {
 
-	@Inject
+	@EJB
 	private VisiteService visiteService;
 
 	@Override

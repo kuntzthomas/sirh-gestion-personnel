@@ -1,59 +1,56 @@
 package dev.sgp.web;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Optional;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dev.sgp.entite.Collaborateur;
+import dev.sgp.entite.Departement;
 import dev.sgp.service.CollaborateurService;
+import dev.sgp.service.DepartementService;
 
 @WebServlet("/collaborateur/editer")
 public class EditerCollaborateurController extends HttpServlet {
 
-	@Inject
+	@EJB
 	private CollaborateurService collabService;
-
-	private static final String MATRICULE = "matricule";
+	@EJB
+	private DepartementService departementService;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String avecMatricule = req.getParameter(MATRICULE);
-
-		resp.setContentType("text/html");
-
-		if (avecMatricule == null) {
-			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			resp.getWriter().write("<h1>Un matricule est attendu</h1>");
+		Optional<String> matricule = Optional.ofNullable(req.getParameter("matricule"));
+		if (matricule.isPresent() && collabService.trouverCollabParMatricule(matricule.get()) != null) {
+			req.setAttribute("collab", collabService.trouverCollabParMatricule(matricule.get()));
+			req.setAttribute("listeDepartements", departementService.listerDepartement());
+			req.getRequestDispatcher("/WEB-INF/views/collab/editerCollaborateur.jsp").forward(req, resp);
 		} else {
-			resp.setStatus(HttpServletResponse.SC_OK);
-			resp.getWriter().write("<h1> Edition de collaborateur</h1>Matricule : " + avecMatricule);
+			resp.sendRedirect("lister");
 		}
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		String matricule = req.getParameter("matricule");
+		String adresse = req.getParameter("adresse");
+		boolean inactif = req.getParameter("desactiver") == null;
+		String intitulePoste = req.getParameter("intitulePoste");
+		String banque = req.getParameter("banque");
+		String iban = req.getParameter("iban");
+		String bic = req.getParameter("bic");
+		Departement departement = departementService
+				.getDepartementById(Integer.valueOf(req.getParameter("departement")));
 
-		List<String> list = Stream.of(MATRICULE, "titre", "nom", "prenom").filter(p -> req.getParameter(p) == null)
-				.collect(Collectors.toList());
-		resp.getWriter().write("");
-
-		if (list.isEmpty()) {
-			resp.setStatus(HttpServletResponse.SC_CREATED);
-			resp.getWriter()
-					.write("Creation d'un collaborateur avec les informations suivantes : </br> matricule = "
-							+ req.getParameter(MATRICULE) + ", titre = " + req.getParameter("titre") + ", nom = "
-							+ req.getParameter("nom") + ", prenom = " + req.getParameter("prenom"));
-		} else {
-			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			resp.getWriter().write("Les parametres suivants sont incorrect : " + String.join(", ", list));
-		}
+		collabService.updateCollaborateur(
+				new Collaborateur(matricule, adresse, inactif, intitulePoste, departement, banque, iban, bic));
+		resp.sendRedirect("lister");
 	}
 }

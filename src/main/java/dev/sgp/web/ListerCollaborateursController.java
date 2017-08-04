@@ -3,7 +3,7 @@ package dev.sgp.web;
 import java.io.IOException;
 import java.util.List;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +19,9 @@ import dev.sgp.service.DepartementService;
 public class ListerCollaborateursController extends HttpServlet {
 
 	// Récupération du service
-	@Inject
+	@EJB
 	private CollaborateurService collabService;
-	@Inject
+	@EJB
 	private DepartementService depService;
 
 	@Override

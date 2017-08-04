@@ -9,7 +9,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Departement")
-@NamedQueries({ @NamedQuery(name = "Departement.findAll", query = "select d from Departement d") })
+@NamedQueries({ @NamedQuery(name = "Departement.findAll", query = "select d from Departement d"),
+		@NamedQuery(name = "Departement.findDepById", query = "select d from Departement d where d.id=:departement") })
 public class Departement {
 
 	@Id
