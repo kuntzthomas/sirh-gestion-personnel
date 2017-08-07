@@ -4,6 +4,7 @@ import java.time.ZonedDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -14,12 +15,15 @@ import javax.persistence.Table;
 @NamedQueries({ @NamedQuery(name = "CollabEvt.findAll", query = "select c from CollabEvt c") })
 public class CollabEvt {
 
+	@Id
+	@GeneratedValue
+	private Integer Id;
+
 	private ZonedDateTime dateHeure;
 
 	@Enumerated
 	private TypeCollabEvt type;
 
-	@Id
 	private String matricule;
 
 	public CollabEvt() {

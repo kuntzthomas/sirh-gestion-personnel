@@ -52,19 +52,24 @@ public class CollaborateurService {
 				.getSingleResult();
 	}
 
-	public void updateCollaborateur(Collaborateur collaborateur) {
-		Collaborateur collab = trouverCollabParMatricule(collaborateur.getMatricule());
-		if (collab != null) {
-			collab.setActif(collaborateur.isActif());
-			collab.setAdresse(collaborateur.getAdresse());
-			collab.setBanque(collaborateur.getBanque());
-			collab.setBic(collaborateur.getBic());
-			collab.setIban(collaborateur.getIban());
-			collab.setIntitulePoste(collaborateur.getIntitulePoste());
-			collab.setDepartement(collaborateur.getDepartement());
+	public void updateCollaborateur(String matricule, Collaborateur collab) {
+		if (trouverCollabParMatricule(matricule) != null) {
+			collab.setMatricule(matricule);
 			em.merge(collab);
-			collabEvt.fire(new CollabEvt(ZonedDateTime.now(), TypeCollabEvt.MODIFICATION_COLLAB,
-					collaborateur.getMatricule()));
+			collabEvt
+					.fire(new CollabEvt(ZonedDateTime.now(), TypeCollabEvt.MODIFICATION_COLLAB, collab.getMatricule()));
+		}
+	}
+
+	public void updateBanqueCollaborateur(String matricule, Collaborateur collab) {
+		if (trouverCollabParMatricule(matricule) != null) {
+			collab.setMatricule(matricule);
+			collab.setBanque(collab.getBanque());
+			collab.setBic(collab.getBic());
+			collab.setIban(collab.getIban());
+			em.merge(collab);
+			collabEvt
+					.fire(new CollabEvt(ZonedDateTime.now(), TypeCollabEvt.MODIFICATION_COLLAB, collab.getMatricule()));
 		}
 	}
 }

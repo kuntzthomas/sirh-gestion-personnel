@@ -86,6 +86,26 @@ public class Collaborateur {
 		this.actif = false;
 	}
 
+	public Collaborateur(String nom, String prenom, LocalDate dateNaissance, String adresse, String numSecu,
+			String intitulePoste, Departement departement, String banque, String iban, String bic) {
+		super();
+		this.matricule = null;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.dateNaissance = dateNaissance;
+		this.adresse = adresse;
+		this.numSecu = numSecu;
+		this.emailPro = null;
+		this.intitulePoste = intitulePoste;
+		this.departement = departement;
+		this.photo = null;
+		this.dateHeureCreation = ZonedDateTime.now();
+		this.actif = true;
+		this.banque = banque;
+		this.iban = iban;
+		this.bic = bic;
+	}
+
 	public String getMatricule() {
 		return matricule;
 	}
@@ -204,6 +224,31 @@ public class Collaborateur {
 
 	public void setBic(String bic) {
 		this.bic = bic;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((matricule == null) ? 0 : matricule.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Collaborateur other = (Collaborateur) obj;
+		if (matricule == null) {
+			if (other.matricule != null)
+				return false;
+		} else if (!matricule.equals(other.matricule))
+			return false;
+		return true;
 	}
 
 }

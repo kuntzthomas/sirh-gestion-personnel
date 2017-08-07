@@ -19,7 +19,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import dev.sgp.entite.Collaborateur;
-import dev.sgp.entite.Departement;
 import dev.sgp.service.CollaborateurService;
 import dev.sgp.service.DepartementService;
 
@@ -53,46 +52,9 @@ public class CollaborateurRessource {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/{matricule}")
-	public Response updateCollaborateur(@PathParam("matricule") String matricule, @QueryParam("adresse") String adresse,
-			@QueryParam("banque") String banque, @QueryParam("bic") String bic, @QueryParam("iban") String iban,
-			@QueryParam("telephone") String tel, @QueryParam("departement") Integer id,
-			@QueryParam("intitulePoste") String intitulePoste) {
+	public void updateCollaborateur(@PathParam("matricule") String matricule, Collaborateur collab) {
 
-		Map<String, Object> params = new HashMap<>();
-		params.put("matricule", matricule);
-		params.put("banque", banque);
-		params.put("adresse", adresse);
-		params.put("bic", bic);
-		params.put("iban", iban);
-		params.put("telephone", tel);
-		params.put("departement", id);
-		params.put("intitulePoste", intitulePoste);
-
-		List<String> notFound = params.entrySet().stream().filter(p -> p.getValue() == null).map(p -> p.getKey())
-				.collect(Collectors.toList());
-		if (!notFound.isEmpty()) {
-
-			JsonObject jo = Json.createObjectBuilder().add("non_renseigne", "[" + String.join(", ", notFound) + "]")
-					.build();
-			return Response.status(400).entity(jo).build();
-
-		} else {
-			List<Departement> listDep = depService.listerDepartement();
-			Departement departement = listDep.get(id);
-
-			Collaborateur col = collabService.trouverCollabParMatricule(matricule);
-			col.setActif(true);
-			col.setAdresse(adresse);
-			col.setBanque(banque);
-			col.setBic(bic);
-			col.setDepartement(departement);
-			col.setIban(iban);
-			col.setIntitulePoste(intitulePoste);
-			collabService.updateCollaborateur(col);
-			return Response.status(Response.Status.OK).build();
-
-		}
-
+		collabService.updateCollaborateur(matricule, collab);
 	}
 
 	@GET
@@ -118,9 +80,7 @@ public class CollaborateurRessource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/{matricule}/banque")
 	public Response updateBanqueCollaborateur(@PathParam("matricule") String matricule,
-			@QueryParam("adresse") String adresse, @QueryParam("banque") String banque, @QueryParam("bic") String bic,
-			@QueryParam("iban") String iban, @QueryParam("telephone") String tel, @QueryParam("departement") Integer id,
-			@QueryParam("intitulePoste") String intitulePoste) {
+			@QueryParam("banque") String banque, @QueryParam("bic") String bic, @QueryParam("iban") String iban) {
 
 		Map<String, Object> params = new HashMap<>();
 		params.put("matricule", matricule);
@@ -141,7 +101,7 @@ public class CollaborateurRessource {
 			collab.setBanque(banque);
 			collab.setBic(bic);
 			collab.setIban(iban);
-			collabService.updateCollaborateur(collab);
+			collabService.updateBanqueCollaborateur(matricule, collab);
 			return Response.status(Response.Status.OK).build();
 
 		}

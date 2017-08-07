@@ -1,7 +1,10 @@
 package dev.sgp.web;
 
 import java.io.IOException;
-import java.util.Optional;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -10,8 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dev.sgp.entite.Collaborateur;
-import dev.sgp.entite.Departement;
 import dev.sgp.service.CollaborateurService;
 import dev.sgp.service.DepartementService;
 
@@ -26,31 +27,44 @@ public class EditerCollaborateurController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		Optional<String> matricule = Optional.ofNullable(req.getParameter("matricule"));
-		if (matricule.isPresent() && collabService.trouverCollabParMatricule(matricule.get()) != null) {
-			req.setAttribute("collab", collabService.trouverCollabParMatricule(matricule.get()));
-			req.setAttribute("listeDepartements", departementService.listerDepartement());
-			req.getRequestDispatcher("/WEB-INF/views/collab/editerCollaborateur.jsp").forward(req, resp);
+		String matriculeParam = req.getParameter("matricule");
+		if (matriculeParam == null) {
+			resp.setContentType("text/html");
+			resp.sendError(400, "Un matricule est attendu");
 		} else {
-			resp.sendRedirect("lister");
+			resp.setContentType("text/html");
+			resp.getWriter().write("<h1>Edition de collaborateur</h1>" + "<p>Matricule : " + matriculeParam + "</p>");
 		}
+
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		String matricule = req.getParameter("matricule");
-		String adresse = req.getParameter("adresse");
-		boolean inactif = req.getParameter("desactiver") == null;
-		String intitulePoste = req.getParameter("intitulePoste");
-		String banque = req.getParameter("banque");
-		String iban = req.getParameter("iban");
-		String bic = req.getParameter("bic");
-		Departement departement = departementService
-				.getDepartementById(Integer.valueOf(req.getParameter("departement")));
 
-		collabService.updateCollaborateur(
-				new Collaborateur(matricule, adresse, inactif, intitulePoste, departement, banque, iban, bic));
-		resp.sendRedirect("lister");
+		String matriculeParam = req.getParameter("matricule");
+		String nomParam = req.getParameter("nom");
+		String prenomParam = req.getParameter("prenom");
+		String intitulePosteParam = req.getParameter("intitulePoste");
+		String banqueParam = req.getParameter("banque");
+		String ibanParam = req.getParameter("iban");
+		String bicParam = req.getParameter("bic");
+
+		List<String> paramsNull = Stream.of("matricule", "titre", "nom", "prenom")
+				.filter(p -> req.getParameter(p) == null).collect(Collectors.toList());
+
+		List<String> params = Arrays.asList(matriculeParam, intitulePosteParam, nomParam, prenomParam, banqueParam,
+				ibanParam, bicParam);
+
+		if (paramsNull.isEmpty()) {
+			resp.setContentType("text/html");
+			resp.setStatus(201);
+
+			params.stream().forEach(resp.getWriter()::write);
+		} else {
+			resp.setContentType("text/html");
+			resp.setStatus(400);
+			resp.getWriter().write("Les paramètres suivants sont incorrects : ");
+			paramsNull.stream().forEach(resp.getWriter()::write);
+		}
 	}
 }
